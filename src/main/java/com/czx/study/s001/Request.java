@@ -19,7 +19,24 @@ public class Request {
 	public void parse(){
 		System.out.println("-----------------");
 		StringBuilder request = new StringBuilder();
-		byte[] buffer = new byte[2048];
+		try {
+			int ava = 0;
+			while((ava = input.available()) > 0) {
+				 try {
+                    // 在此睡眠0.1秒,很重要
+                    Thread.sleep(100);
+                } catch (Exception t) {
+                    t.printStackTrace();
+                }
+                byte[] bufferedbyte = new byte[ava];
+                input.read(bufferedbyte, 0, ava);
+                request.append(new String(bufferedbyte, "UTF-8"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		/*byte[] buffer = new byte[2048];
 		int i;
 		try {
 			i = input.read(buffer);
@@ -30,7 +47,7 @@ public class Request {
 		
 		for (int j=0; j<i; j++) {
 	      request.append((char) buffer[j]);
-	    }
+	    }*/
 		
 		System.out.print(request.toString());
 		uri = parseUri(request.toString());
