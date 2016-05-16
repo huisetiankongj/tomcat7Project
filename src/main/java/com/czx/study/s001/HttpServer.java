@@ -39,7 +39,8 @@ public class HttpServer {
 		}
 		try {
 			while(!shutDown){
-				Socket socket = server.accept();
+				Socket socket = null;
+				socket = server.accept();
 				InputStream input = socket.getInputStream();
 				OutputStream output = socket.getOutputStream();
 				
@@ -53,7 +54,6 @@ public class HttpServer {
 				
 				// Close the socket
 		        socket.close();
-	
 		        //check if the previous URI is a shutdown command
 	//		     shutDown = true;
 			}
